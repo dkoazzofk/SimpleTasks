@@ -17,7 +17,23 @@ void createTask(){
     fprintf(fp, "%s\n", input);
 
     fclose(fp);
-    
+}
+
+void showTask(){
+    FILE *fp;
+    char buffer[256];
+    char name[] = "ToDoList.txt";
+    if((fp = fopen(name,"r")) == NULL){
+        perror("Не удалось открыть файл.\n");
+        getchar();
+        return;
+    }
+    if(fp){
+        while(fgets(buffer, 256, fp) != NULL){
+            printf("%s", buffer);
+        }
+        fclose(fp);
+    }
 }
 
 int main(){
@@ -39,7 +55,11 @@ int main(){
         case 1:
             createTask();
             break;
-        
+        case 2:
+            break;
+        case 3:
+            showTask();
+            break;
         default:
             break;
         }
