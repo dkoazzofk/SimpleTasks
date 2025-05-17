@@ -19,6 +19,45 @@ void createTask(){
     fclose(fp);
 }
 
+void deleteTask(){
+    FILE *fp;
+    char input[1024];
+    char search[1024];
+    int flag = 0;
+    char name[] = "ToDoList.txt";
+    if((fp = fopen(name, "r")) == NULL){
+        perror("Не удалось открыть файл.\n");
+        getchar();
+        return;
+    }
+    printf("Введите номер задачи, которую хотите удалить: ");
+    scanf(" %99[^\n]", search);
+
+    char tempName[] = "tempFile.txt";
+    FILE *temp;
+    if((temp = fopen(tempName, "w")) == NULL){
+        perror("Не удалось открыть временный файл.\n");
+        getchar();
+        return;
+    }
+    while(fgets(input, sizeof(input), fp) != NULL){
+        if(strstr(input, search) == input){
+            flag = 1;
+            continue;
+        }
+        fputs(input, temp);
+    }
+    fclose(fp);
+    fclose(temp);
+
+    if(flag){
+        remove(name);
+        rename(tempName, name);
+    } else{
+        remove(tempName);
+    }
+}
+
 void showTask(){
     FILE *fp;
     char buffer[256];
@@ -56,6 +95,7 @@ int main(){
             createTask();
             break;
         case 2:
+            deleteTask();
             break;
         case 3:
             showTask();
