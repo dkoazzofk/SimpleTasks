@@ -29,7 +29,6 @@ int main(){
         close(sockfd);
         exit(EXIT_FAILURE);
     }
-
     //привязка к ip
     if(bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0){
         perror("bind");
