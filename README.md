@@ -6,7 +6,9 @@
 
 :three: **Unit Converter (Преобразователь единиц измерения)** :ballot_box_with_check:
 
-:four: **TCP echoClientServer (Эхо Клинет Сервер)** :ballot_box_with_check:
+:four: **TCP echoClientServer (TCP Эхо Клинет Сервер)** :ballot_box_with_check:
+
+:five: **UDP echoClientServer (UDP Эхо Клиент Сервер)** :ballot_box_with_check:
 
 ## TCP Echo Client Server
 **Установка опции на незамедлительное освобождение порта после использования в server.c**
