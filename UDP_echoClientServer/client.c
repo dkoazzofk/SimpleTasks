@@ -22,7 +22,7 @@ int main(){
     memset(&clientaddr, 0, sizeof(clientaddr));
     clientaddr.sin_family = AF_INET;
     clientaddr.sin_port = htons(8080);
-    inet_aton("127.0.0.1", &clientaddr.sin_addr.s_addr);
+    inet_aton("127.0.0.1", &clientaddr.sin_addr);
 
     socklen_t len = sizeof(clientaddr);
 
