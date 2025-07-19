@@ -3,54 +3,29 @@
 
 #define NULL ((void *)0)
 
-#define N 10
-#define M 2
+#define NUM_THREADS 5
 
-int sum = 0;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-void* thread_func(void* arg){
-    int* array = (int*)arg;
-    int localsum = 0;
-
-    for(int i = 0; i < N/M; i++){
-        localsum += array[i];
-    }
-
-    pthread_mutex_lock(&mutex);
-    sum += localsum;
-    pthread_mutex_unlock(&mutex);
+void* print_func(void* arg){
+    int thread_num = *(int*)arg;
+    printf("Thread %d: TID = %lu\n", thread_num, pthread_self());
     return NULL;
 }
 
 int main(){
-    int array[N] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    int func_array1[N/M];
-    int func_array2[N/M];
+    pthread_t tids[NUM_THREADS];
+    int thread_num[NUM_THREADS];
 
-    for(int i = 0; i < N/M; i++){
-        func_array1[i] = array[i];
+    for(int i = 0; i < NUM_THREADS; i++){
+        thread_num[i] = 1 + i;
+        if (pthread_create(&tids[i], NULL, print_func, &thread_num[i]) != 0){
+            perror("FAILED pthread_create\n");
+            return 1;
+        }
     }
 
-    for(int i = 0; i < N/M; i++){
-        func_array2[i] = array[i + N/M];
+    for(int i = 0; i < NUM_THREADS; i++){
+        pthread_join(tids[i], NULL);
     }
-
-    pthread_t tid, tid2;
-
-    if (pthread_create(&tid, NULL, thread_func, func_array1) != 0){
-        perror("FAILED pthread_create\n");
-        return 1;
-    }
-
-    if (pthread_create(&tid2, NULL, thread_func, func_array2) != 0){
-        perror("FAILED pthread_create\n");
-        return 1;
-    }
-
-    pthread_join(tid, NULL);
-    pthread_join(tid2, NULL);
-
-    printf("SUM = %d\n", sum);
+ 
     return 0;
 }
