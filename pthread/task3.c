@@ -43,12 +43,12 @@ int main(){
     pthread_t prod, con;
     int buffer[NUMBER];
 
-    if (pthread_create(&con, NULL, producer, buffer) != 0){
+    if (pthread_create(&con, NULL, consumer, buffer) != 0){
         perror("FAILED pthread create\n");
         return 1;
     }
 
-    if (pthread_create(&prod, NULL, consumer, buffer) != 0){
+    if (pthread_create(&prod, NULL, producer, buffer) != 0){
         perror("FAILED pthread create\n");
         return 1;
     }
