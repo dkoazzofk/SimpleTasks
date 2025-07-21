@@ -12,6 +12,8 @@
 
 :six: **Fork** :ballot_box_with_check:
 
+:seven: **Pthread** :ballot_box_with_check:
+
 ## TCP Echo Client Server
 **Установка опции на незамедлительное освобождение порта после использования в server.c**
 ```
